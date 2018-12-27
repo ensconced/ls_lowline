@@ -1,16 +1,6 @@
 (function () {
   var _ = function (element) {
-    var u;
-
-    function match(query) {
-      return function (obj) {
-        return Object.keys(query).every(function (key) {
-          return obj[key] === query[key];
-        });
-      };
-    }
-
-    u = {
+    var u = {
       first: function () {
         return element[0];
       },
@@ -41,7 +31,7 @@
         var sampled = [];
         var copy = element.slice();
         var get = function () {
-          var idx = Math.floor(Math.random() * element.length);
+          var idx = Math.floor(Math.random() * copy.length);
           var el = copy[idx];
           copy.splice(idx, 1);
           return el;
@@ -98,6 +88,14 @@
         return Object.prototype.hasOwnProperty.call(element, prop);
       },
     };
+
+    function match(query) {
+      return function (obj) {
+        return Object.keys(query).every(function (key) {
+          return obj[key] === query[key];
+        });
+      };
+    }
 
     (['isElement', 'isArray', 'isObject', 'isFunction', 'isBoolean', 'isString', 'isNumber']).forEach(function (method) {
       u[method] = function () {
